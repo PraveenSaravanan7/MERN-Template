@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from '../api'
+import pic from '../images/atm.gif'
 const ls=require('local-storage')
 export const LoginPage = () => {
     
@@ -75,7 +76,7 @@ export const LoginPage = () => {
     return (
       <div className="container pt-5" >
       <div className="jumbotron border bg-white col-md-5 m-auto pt-5" >
-         <h1 className="text-primary mb-3" ><b>CHAT systeM</b></h1>
+         <h1 className="text-primary mb-3" ><b>ATM</b></h1>
            
              <div className=" p-1 " >
                
@@ -94,7 +95,7 @@ export const LoginPage = () => {
     <input type="email" className="form-control" required  name="email"  onChange={handleChange}/>
   </div>
   <div className="form-group">
-    <span  ><b>New Password</b></span>
+    <span  ><b>New ATM Pin</b></span>
     <input type="password" className="form-control" required name="password" onChange={handleChange}/>
   </div>
  
@@ -112,7 +113,7 @@ export const LoginPage = () => {
   <input type="email" className="form-control" required  name="email"  onChange={handleChange}/>
 </div>
 <div className="form-group">
-  <span  ><b>Password</b></span>
+  <span  ><b>ATM Pin</b></span>
   <input type="password" className="form-control" required name="password" onChange={handleChange}/>
 </div>
 {err &&

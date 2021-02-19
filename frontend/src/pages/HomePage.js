@@ -33,15 +33,18 @@ export const HomePage = () => {
     return (
         <div className="container pt-5" >
             <div className="jumbotron p-4 border bg-white col-md-6 m-auto" >
-            <h1 className="text-primary mb-3" ><b>CHAT systeM</b></h1>
+            <h1 className="text-primary mb-3" ><b>ATM</b></h1>
            
                 {!loading?
                 <div>
                     <h2>{user.name}</h2>
                     <h6>{user.email}</h6>
-                    
-                   <Link to={'/users'} >
-                   <button className="btn btn-lg btn-light shadow-sm btn-block mt-4" >Go to chat</button>
+                    <h1 className="text-success mb-4" >₹ {user.money}</h1>
+                   <Link to={'/panel?type=1&bal='+user.money} >
+                   <button type="button" className="btn btn-lg btn-light shadow-sm btn-block" >Withdraw Cash</button>
+                   </Link>
+                   <Link to={'/panel?type=2'} >
+                   <button className="btn btn-lg btn-light shadow-sm btn-block mt-4" >Deposit Cash</button>
                     </Link>
                 </div>:
                 <h3 className="text-primary" >Loading....</h3>}

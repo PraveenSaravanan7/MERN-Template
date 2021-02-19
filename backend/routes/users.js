@@ -31,6 +31,45 @@ router.route('/')
  
 })
 
+.put(authJWT,(req,res,next) => {
+  Users.findOne({_id:req.user.userid})
+  .then((users) => {
+    if(req.body.type==1 && req.body.amount>0 && req.body.amount<=users.money ){
+      let money= parseInt( users.money ) - parseInt( req.body.amount)
+      Users.updateOne({_id:req.user.userid},{"money":money})
+        .then((users) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(users);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+    }
+    else if(req.body.type==2 && req.body.amount>0 && req.body.amount== req.body.hun*100 + req.body.two_hun*200 + req.body.five_hun*500   ){
+      let money= parseInt( users.money) + parseInt( req.body.amount)
+      Users.updateOne({_id:req.user.userid},{"money":money})
+        .then((users) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(users);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+    }
+    else{
+        let err=new Error("Error")
+        next(err)
+    }
+}, (err) => next(err))
+.catch((err) => next(err));
+})
+// .put(authJWT,(req,res,next) => {
+//   Users.updateOne({_id:req.user.userid},req.body)
+//   .then((users) => {
+//     res.statusCode = 200;
+//     res.setHeader('Content-Type', 'application/json');
+//     res.json(users);
+// }, (err) => next(err))
+// .catch((err) => next(err));
+// })
 
 .post((req,res,next) =>{
   hashPassword(req.body.password)
@@ -50,17 +89,7 @@ err.status = 403;next(err)} )
   })
 });
 
-router.route('/allusers') 
-.get(authJWT,(req,res,next) => {
-    Users.find({_id:{$nin:[req.user.userid]}},{password:0})
-    .then((users) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(users);
-    }, (err) => next(err))
-    .catch((err) => next(err));
- 
-});
+
 
 router.route('/login')
 .post((req,res,next) =>{
